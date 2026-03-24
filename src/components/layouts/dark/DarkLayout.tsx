@@ -136,10 +136,9 @@ export default function DarkLayout({ page, onNavigate, onBack }: Props) {
       {/* Page Rendering */}
       {page === "home" && <DarkHome onNavigate={onNavigate} />}
       {page === "login" && <DarkLogin onNavigate={onNavigate} />}
-      {page === "dashboard" && <DarkDashboard onNavigate={onNavigate} />}
+      {page === "dashboard" && <DarkDashboard onNavigate={onNavigate} currentPage={"home"} />}
       {page === "notifications" && <DarkNotification onNavigate={onNavigate} />}
-      {page === "workflow" && <DarkWorkflow onNavigate={onNavigate} />} {/* ✅ Added */}
-
+      {page === "workflow" && <DarkWorkflow {...({ onNavigate } as any)} />} {/* ✅ Added */}
       <AIBot theme="dark" />
     </div>
   );

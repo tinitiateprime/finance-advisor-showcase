@@ -124,7 +124,7 @@ export default function LightLayout({ page, onNavigate, onBack }: Props) {
 
             <button
               onClick={() => {
-                onNavigate("notification");
+                onNavigate("notifications");
                 setMenuOpen(false);
               }}
               className="text-sm text-gray-700 py-2 text-left border-b border-gray-100"
@@ -150,8 +150,8 @@ export default function LightLayout({ page, onNavigate, onBack }: Props) {
       {page === "home" && <LightHome onNavigate={onNavigate} />}
       {page === "login" && <LightLogin onNavigate={onNavigate} />}
       {page === "dashboard" && <LightDashboard onNavigate={onNavigate} />}
-      {page === "notification" && <LightNotification onNavigate={onNavigate} />}
-      {page === "workflow" && <LightWorkflow onNavigate={onNavigate} />}
+      {page === "notifications" && <LightNotification />}
+      {page === "workflow" && <LightWorkflow  />}
 
       {/* AI Bot */}
       <AIBot theme="light" />

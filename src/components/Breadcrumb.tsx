@@ -16,15 +16,17 @@ const crumbMap: Record<PageView, { label: string; path: PageView | null }[]> = {
     { label: "Dashboard", path: null }
   ],
 
-  notification: [
+  notifications: [
     { label: "Home", path: "home" },
-    { label: "Notification", path: null }
+    { label: "Notifications", path: null }
   ],
 
   workflow: [
     { label: "Home", path: "home" },
     { label: "Workflow", path: null }
   ],
+  reports: [],
+  settings: []
 };
 
 export default function Breadcrumb({

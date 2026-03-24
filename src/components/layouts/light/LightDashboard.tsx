@@ -59,7 +59,7 @@ export default function LightDashboard({
 
                 <button
                   onClick={() => {
-                    onNavigate("notification");
+                    onNavigate("notifications");
                     setOpenDropdown(false);
                   }}
                   className="w-full text-left px-4 py-2 text-sm text-gray-600 hover:bg-gray-100"

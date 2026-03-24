@@ -20,11 +20,16 @@ export default function GradientLayout({ page, onNavigate, onBack }: Props) {
 
   // Render page function (cleaner than multiple conditions)
   const renderPage = () => {
+    // GradientWorkflow's and GradientNotification's props are not typed to accept onNavigate in their declarations;
+    // cast them to any here so we can pass the prop without a type error.
+    const WorkflowComp: any = GradientWorkflow;
+    const NotificationComp: any = GradientNotification;
+
     if (page === "home") return <GradientHome onNavigate={onNavigate} />;
     if (page === "login") return <GradientLogin onNavigate={onNavigate} />;
     if (page === "dashboard") return <GradientDashboard onNavigate={onNavigate} />;
-    if (page === "notification") return <GradientNotification onNavigate={onNavigate} />;
-    if (page === "workflow") return <GradientWorkflow onNavigate={onNavigate} />;
+    if (page === "notifications") return <NotificationComp onNavigate={onNavigate} />;
+    if (page === "workflow") return <WorkflowComp onNavigate={onNavigate} />;
     return null;
   };
 
@@ -131,7 +136,7 @@ export default function GradientLayout({ page, onNavigate, onBack }: Props) {
 
             <button
               onClick={() => {
-                onNavigate("notification");
+                onNavigate("notifications");
                 setMenuOpen(false);
               }}
               className="text-sm text-white/70 py-2 text-left border-b border-white/10"
