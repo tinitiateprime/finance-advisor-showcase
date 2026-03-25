@@ -1,11 +1,13 @@
 "use client";
+
 import { useState } from "react";
 import { PageView } from "@/types";
+
 import DarkHome from "./DarkHome";
 import DarkLogin from "./DarkLogin";
 import DarkDashboard from "./DarkDashboard";
 import DarkNotification from "./DarkNotification";
-import DarkWorkflow from "./DarkWorkflow"; // ✅ Added
+import DarkWorkflow from "./DarkWorkflow";
 
 import Breadcrumb from "@/components/Breadcrumb";
 import AIBot from "@/components/AIBot";
@@ -19,14 +21,18 @@ interface Props {
 export default function DarkLayout({ page, onNavigate, onBack }: Props) {
   const [menuOpen, setMenuOpen] = useState(false);
 
+  // ✅ DEBUG (remove later)
+  console.log("Current Page:", page);
+
   return (
     <div className="min-h-screen bg-gray-950 text-white font-sans">
+      {/* NAVBAR */}
       <nav className="sticky top-0 z-50 bg-gray-900/90 backdrop-blur border-b border-gray-800">
         <div className="flex items-center justify-between px-4 sm:px-6 md:px-10 py-3.5">
 
           {/* Logo */}
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center font-bold text-sm flex-shrink-0">
+            <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center font-bold text-sm">
               FA
             </div>
             <span className="font-semibold text-base sm:text-lg">
@@ -43,29 +49,25 @@ export default function DarkLayout({ page, onNavigate, onBack }: Props) {
           <div className="hidden sm:flex gap-2">
             <button
               onClick={() => onNavigate("login")}
-              className="text-sm px-3 py-1.5 border border-gray-700 hover:border-gray-500 rounded-lg transition text-gray-300"
+              className="text-sm px-3 py-1.5 border border-gray-700 hover:border-gray-500 rounded-lg text-gray-300"
             >
               Login
             </button>
 
             <button
               onClick={() => onNavigate("dashboard")}
-              className="text-sm px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 rounded-lg transition"
+              className="text-sm px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 rounded-lg"
             >
               Dashboard
             </button>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Toggle */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="sm:hidden text-gray-400 hover:text-white p-1.5"
+            className="sm:hidden text-gray-400 p-1.5"
           >
-            <div className="space-y-1.5">
-              <span className="block w-5 h-0.5 bg-current" />
-              <span className="block w-5 h-0.5 bg-current" />
-              <span className="block w-5 h-0.5 bg-current" />
-            </div>
+            ☰
           </button>
         </div>
 
@@ -78,67 +80,43 @@ export default function DarkLayout({ page, onNavigate, onBack }: Props) {
         {menuOpen && (
           <div className="sm:hidden bg-gray-900 border-t border-gray-800 px-4 py-3 flex flex-col gap-2">
 
-            <button
-              onClick={() => {
-                onNavigate("home");
-                setMenuOpen(false);
-              }}
-              className="text-sm text-gray-300 py-2 text-left border-b border-gray-800"
-            >
-              🏠 Home
-            </button>
-
-            <button
-              onClick={() => {
-                onNavigate("login");
-                setMenuOpen(false);
-              }}
-              className="text-sm text-gray-300 py-2 text-left border-b border-gray-800"
-            >
-              🔐 Login
-            </button>
-
-            <button
-              onClick={() => {
-                onNavigate("dashboard");
-                setMenuOpen(false);
-              }}
-              className="text-sm text-gray-300 py-2 text-left border-b border-gray-800"
-            >
-              📊 Dashboard
-            </button>
-
-            <button
-              onClick={() => {
-                onNavigate("notifications");
-                setMenuOpen(false);
-              }}
-              className="text-sm text-gray-300 py-2 text-left border-b border-gray-800"
-            >
-              🔔 Notifications
-            </button>
-
-            {/* ✅ Workflow Button */}
-            <button
-              onClick={() => {
-                onNavigate("workflow");
-                setMenuOpen(false);
-              }}
-              className="text-sm text-gray-300 py-2 text-left"
-            >
-              ⚙ Workflow
-            </button>
-
+            {[
+              { label: "🏠 Home", page: "home" },
+              { label: "🔐 Login", page: "login" },
+              { label: "📊 Dashboard", page: "dashboard" },
+              { label: "🔔 Notifications", page: "notifications" },
+              { label: "⚙ Workflow", page: "workflow" },
+            ].map((item) => (
+              <button
+                key={item.page}
+                onClick={() => {
+                  onNavigate(item.page as PageView);
+                  setMenuOpen(false);
+                }}
+                className="text-sm text-gray-300 py-2 text-left border-b border-gray-800"
+              >
+                {item.label}
+              </button>
+            ))}
           </div>
         )}
       </nav>
 
-      {/* Page Rendering */}
-      {page === "home" && <DarkHome onNavigate={onNavigate} />}
-      {page === "login" && <DarkLogin onNavigate={onNavigate} />}
-      {page === "dashboard" && <DarkDashboard onNavigate={onNavigate} currentPage={"home"} />}
-      {page === "notifications" && <DarkNotification onNavigate={onNavigate} />}
-      {page === "workflow" && <DarkWorkflow {...({ onNavigate } as any)} />} {/* ✅ Added */}
+      {/* PAGE RENDERING */}
+     <div className="flex-1 overflow-auto">
+  {page === "home" && <DarkHome onNavigate={onNavigate} />}
+  {page === "login" && <DarkLogin onNavigate={onNavigate} />}
+  {page === "dashboard" && (
+    <DarkDashboard onNavigate={onNavigate} currentPage={page} />
+  )}
+  {page === "notifications" && (
+    <DarkNotification onNavigate={onNavigate} />
+  )}
+  {page === "workflow" && (
+    <DarkWorkflow onNavigate={onNavigate} />
+  )}
+</div>
+
       <AIBot theme="dark" />
     </div>
   );

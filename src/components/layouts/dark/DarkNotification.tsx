@@ -88,9 +88,8 @@ export default function DarkNotification({
   const alertCount = notifications.filter((n) => n.type === "alert").length;
 
   return (
-    <div className="min-h-screen bg-gray-950 font-sans">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 py-10">
-
+    <div className="w-full h-full bg-gray-950 font-sans overflow-auto">
+    <div className="max-w-3xl mx-auto px-4 sm:px-6 py-6">
         {/* Header */}
         <div className="flex items-start justify-between mb-8">
           <div>

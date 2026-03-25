@@ -24,7 +24,7 @@ export default function LightDashboard({
           {[
             { label: "Overview", page: "home" },
             { label: "Reports", page: "dashboard" },
-            { label: "Notification", page: "notification" },
+            { label: "Notification", page: "notifications" },
             { label: "Workflow", page: "workflow" },
           ].map((t) => (
             <button

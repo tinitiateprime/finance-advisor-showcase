@@ -20,7 +20,7 @@ export default function GradientDashboard({ onNavigate }: { onNavigate: (p: Page
         <div className="flex gap-2 flex-wrap">
           {[
             { label: "Home", page: "home" },
-            { label: "Notification", page: "notification" },
+            { label: "Notification", page: "notifications" },
             { label: "Workflow", page: "workflow" },
             { label: "Account", page: "login" },
             
